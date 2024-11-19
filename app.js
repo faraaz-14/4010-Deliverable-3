@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // MongoDB connection URL
-const mongoURL = ''; // Waiting for Samir's connection URL
+const mongoURL = 'mongodb+srv://4010group:quickwhip123@quickwhip.kpxfz.mongodb.net/'; 
 
 // Connect to MongoDB
 mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
