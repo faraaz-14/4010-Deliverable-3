@@ -1,5 +1,62 @@
 document.addEventListener('DOMContentLoaded', populateFilters);
 
+/* BLOCKED FOR TESTING
+const mockFilters = {
+    makes: ["Bugatti", "Ferrari", "Lamborghini", "McLaren", "Porsche"],
+    years: [2018, 2019, 2020, 2021, 2022],
+    rateRanges: [{ label: "Low to High" }, { label: "High to Low" }],
+    colors: ["Red", "Blue", "Silver", "Black", "White"],
+  };
+  
+  async function populateFilters() {
+    try {
+      const response = await fetch('/api/filters');
+      if (!response.ok) throw new Error('Falling back to mock data');
+      const { makes, years, rateRanges, colors } = await response.json();
+  
+      populateDropdown('make', makes);
+      populateDropdown('year', years);
+      populateDropdown('rate', rateRanges.map(range => range.label));
+      populateDropdown('color', colors);
+  
+      document.getElementById('make').addEventListener('change', updateModelsDropdown);
+    } catch (error) {
+      console.warn('Using mock data:', error.message);
+  
+      populateDropdown('make', mockFilters.makes);
+      populateDropdown('year', mockFilters.years);
+      populateDropdown('rate', mockFilters.rateRanges.map(range => range.label));
+      populateDropdown('color', mockFilters.colors);
+  
+      document.getElementById('make').addEventListener('change', updateModelsDropdownMock);
+    }
+  }
+  
+  function updateModelsDropdownMock() {
+    const modelsByMake = {
+      Bugatti: ["Chiron", "Veyron"],
+      Ferrari: ["488 GTB", "Portofino"],
+      Lamborghini: ["Huracan", "Aventador"],
+      McLaren: ["570S", "720S"],
+      Porsche: ["911 Carrera", "Cayenne"],
+    };
+  
+    const make = document.getElementById('make').value;
+    const modelDropdown = document.getElementById('model');
+    modelDropdown.innerHTML = '<option value="">Select a model</option>';
+  
+    if (make && modelsByMake[make]) {
+      modelsByMake[make].forEach(model => {
+        const opt = document.createElement('option');
+        opt.value = model;
+        opt.textContent = model;
+        modelDropdown.appendChild(opt);
+      });
+    }
+  }
+  */
+
+
 //function for populating filters from mongoDB
 async function populateFilters() {
     try {
@@ -21,6 +78,7 @@ async function populateFilters() {
         console.error('Error fetching filters:', error);
     }
 }
+
 
 function populateDropdown(id, options) {
     const dropdown = document.getElementById(id);
@@ -55,6 +113,7 @@ async function updateModelsDropdown() {
         console.error('Error fetching models:', error);
     }
 }
+   
 
 async function queryVehicles() {
     const make = document.getElementById('make').value;
@@ -100,4 +159,6 @@ async function queryVehicles() {
         console.error('Error querying vehicles:', error);
     }
 }
+document.getElementById('search-btn').addEventListener('click', queryVehicles);
+
 
