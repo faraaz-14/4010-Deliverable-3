@@ -1,0 +1,26 @@
+.reserve-btn {
+    background-color: #e86ed0; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    border-radius: 5px; 
+    font-size: 14px; 
+    float: right; 
+
+}
+
+.reserve-btn:hover {
+    background-color: #e86ed0;
+    color: #fff; 
+}
+.reserve-btn-d {
+    background-color: #a1a1a1; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    border-radius: 5px; 
+    font-size: 14px; 
+    float: right; 
+}

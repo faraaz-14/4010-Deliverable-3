@@ -94,10 +94,9 @@ async function queryVehicles() {
         } else {
             vehicles.forEach(vehicle => {
                 const vehicleDiv = document.createElement('div');
-                vehicleDiv.classList.add('vehicle-info');  // Adding a class for styling
+                vehicleDiv.classList.add('vehicle-info');  
 
                 vehicleDiv.innerHTML = `
-                    <p><strong>VIN:</strong> ${vehicle.vinNumber}</p>
                     <p><strong>Make:</strong> ${vehicle.make}</p>
                     <p><strong>Model:</strong> ${vehicle.model}</p>
                     <p><strong>Year:</strong> ${vehicle.year}</p>
@@ -106,6 +105,24 @@ async function queryVehicles() {
                     <p><strong>Status:</strong> ${vehicle.status ? 'Available' : 'Unavailable'}</p>
                     <hr>
                 `;
+                //displays a reserve now button if vehicle status is true
+                if (vehicle.status) {
+                    const reserveButton = document.createElement('button');
+                    reserveButton.textContent = 'Reserve Now';
+                    reserveButton.classList.add('reserve-btn'); 
+                    reserveButton.addEventListener('click', () => {
+                        window.location.href = 'loading.html'; 
+                    });
+                    vehicleDiv.appendChild(reserveButton);
+                //if not true then a disabled grey button will appear
+                } else {
+                    const unavailableButton = document.createElement('button');
+                    unavailableButton.textContent = 'Unavailable';
+                    unavailableButton.classList.add('reserve-btn-d'); 
+                    unavailableButton.disabled = true; 
+                    vehicleDiv.appendChild(unavailableButton);
+                }
+            
                 resultsDiv.appendChild(vehicleDiv);
             });
         }
@@ -116,53 +133,6 @@ async function queryVehicles() {
 }
 document.getElementById('sort').addEventListener('change', queryVehicles);
 
-
-/* BLOCKED FOR TESTING
-async function queryVehicles() {
-    const make = document.getElementById('make').value;
-    const model = document.getElementById('model').value;
-    const year = document.getElementById('year').value;
-    const rateRange = document.getElementById('rate').value;
-    const color = document.getElementById('color').value;
-
-    const params = new URLSearchParams();
-    if (make) params.append('make', make);
-    if (model) params.append('model', model);
-    if (year) params.append('year', year);
-    if (rateRange) params.append('rateRange', rateRange); 
-    if (color) params.append('color', color);
-
-    try {
-        const response = await fetch(`/api/vehicles?${params.toString()}`);
-        if (!response.ok) throw new Error('Failed to fetch vehicle data');
-        const vehicles = await response.json();
-
-        const resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = '';
-
-        if (vehicles.length === 0) {
-            resultsDiv.innerHTML = '<p>No vehicles found.</p>';
-        } else {
-            vehicles.forEach(vehicle => {
-                const vehicleDiv = document.createElement('div');
-                vehicleDiv.innerHTML = `
-                    <p>VIN: ${vehicle.vinNumber}</p>
-                    <p>Make: ${vehicle.make}</p>
-                    <p>Model: ${vehicle.model}</p>
-                    <p>Year: ${vehicle.year}</p>
-                    <p>Rate: $${vehicle.rate}</p>
-                    <p>Color: ${vehicle.color}</p>
-                    <p>Status: ${vehicle.status}</p>
-                    <hr>
-                `;
-                resultsDiv.appendChild(vehicleDiv);
-            });
-        }
-    } catch (error) {
-        console.error('Error querying vehicles:', error);
-    }
-}
-*/
 document.getElementById('search-btn').addEventListener('click', queryVehicles);
 
 

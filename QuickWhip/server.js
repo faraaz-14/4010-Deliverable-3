@@ -3,10 +3,11 @@ const { MongoClient } = require('mongodb');
 const cors = require('cors');
 const path = require('path');
 const app = express();
-const port = 3003;
+require('dotenv').config();
+const port = 3000;
 
 
-const uri = 'mongodb+srv://4010group:test@quickwhip.kpxfz.mongodb.net/';
+const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(cors());
