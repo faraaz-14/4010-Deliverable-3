@@ -5,6 +5,7 @@
 - Krystian Ivach - 219008465
 - Shaun Pangilinan - 218023044
 
+**All Executable Files are within the QuickWhip Folder**
 # Documentation
 ## **index.html:**
 
